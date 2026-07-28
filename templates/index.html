@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Task Planner</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>AI Task Manager & Planner</h1>
+
+        <p class="subtitle">
+            Enter your daily tasks and let the AI summarize,
+            classify, prioritize, and organize them.
+        </p>
+
+        <form method="POST">
+
+            <label for="tasks">Enter your tasks</label>
+
+            <textarea
+                id="tasks"
+                name="tasks"
+                rows="8"
+                placeholder="Example: Finish the database report before Thursday. Study for the networking exam. Buy groceries."
+                required
+            >{{ user_tasks }}</textarea>
+
+            <button type="submit">Generate Smart Plan</button>
+
+        </form>
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        {% if result %}
+
+            <div class="results">
+
+                <div class="result-card">
+
+                    <h2>Original Task Input</h2>
+
+                    <p class="output">
+                        {{ result.tasks }}
+                    </p>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <h2>Summary</h2>
+
+                    <p class="output">
+                        {{ result.summary }}
+                    </p>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <h2>Classification</h2>
+
+                    <pre class="output">{{ result.classification }}</pre>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <h2>Task Priority</h2>
+
+                    <pre class="output">{{ result.priority }}</pre>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <h2>Smart Plan</h2>
+
+                    <pre class="output">{{ result.smart_plan }}</pre>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
